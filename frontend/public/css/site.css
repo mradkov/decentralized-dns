@@ -1,0 +1,11 @@
+.credit-description-property {
+    font-weight: bolder;
+}
+
+.status-cracked {
+    color: #6f6;
+}
+
+.status-pending {
+    color: orange;
+}

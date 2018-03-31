@@ -147,7 +147,7 @@ contract('DDNSService', ([owner, wallet, anotherAccount]) => {
 		await assertRevert(result);
 	});
 
-	it("registerDomain Should register existing, but expired domain, to another owner", async () => {
+	it("register Should register existing, but expired domain, to another owner", async () => {
 		// Arrange
 		const domainName = "milenradkov";
 		const ip = "127.0.0.1";

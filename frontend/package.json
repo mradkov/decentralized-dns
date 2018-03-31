@@ -1,11 +1,22 @@
 {
-  "name": "frontend",
-  "version": "1.0.0",
-  "description": "",
+  "name": "decentralized-dns",
+  "version": "0.0.1",
+  "description": "DDNS platform",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "engines": {
+    "node": "8.1.0",
+    "npm": "5.0.3"
   },
-  "author": "Milen Radkov <milenradkov@me.com> (http://mradkov.com)",
-  "license": "MIT"
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Milen Radkov",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "1.17.2",
+    "express": "4.15.3",
+    "express-handlebars": "3.0.0",
+    "express-session": "1.15.3",
+    "handlebars-helpers": "0.8.2"
+  }
 }
