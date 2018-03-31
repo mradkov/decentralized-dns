@@ -15,12 +15,27 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
+      <file leaf-file-name="contract_interaction.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/js/contract_interaction.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="4" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-              <folding />
+            <state relative-caret-position="318">
+              <caret line="209" column="36" lean-forward="true" selection-start-line="209" selection-start-column="36" selection-end-line="209" selection-end-column="36" />
+              <folding>
+                <element signature="e#7198#7267#0" expanded="false" />
+                <element signature="e#9189#10067#0" expanded="false" />
+                <element signature="e#10121#10922#0" expanded="false" />
+                <element signature="e#10975#11816#0" expanded="false" />
+                <element signature="e#11873#12723#0" expanded="false" />
+                <element signature="e#12777#13642#0" expanded="false" />
+                <element signature="e#14562#14685#0" expanded="false" />
+                <element signature="e#14723#14875#0" expanded="false" />
+                <element signature="e#14908#15034#0" expanded="false" />
+                <element signature="e#15075#15224#0" expanded="false" />
+                <element signature="e#15263#15710#0" expanded="false" />
+                <marker date="1522532192495" expanded="true" signature="8317:9048" ph="..." />
+                <marker date="1522532192495" expanded="false" signature="8392:8431" ph="..." />
+                <marker date="1522532192495" expanded="false" signature="8744:8765" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -28,18 +43,8 @@
       <file leaf-file-name="main.handlebars" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/layouts/main.handlebars">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-970">
-              <caret line="11" column="68" lean-forward="true" selection-start-line="11" selection-start-column="68" selection-end-line="11" selection-end-column="68" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.handlebars" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/home/index.handlebars">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+            <state relative-caret-position="174">
+              <caret line="55" column="47" lean-forward="false" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -48,48 +53,8 @@
       <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/config/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="32" lean-forward="true" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="users-controller.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/controllers/users-controller.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="settings.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/config/settings.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="express.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/config/express.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="buy.handlebars" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/users/buy.handlebars">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="64" lean-forward="true" selection-start-line="14" selection-start-column="64" selection-end-line="14" selection-end-column="64" />
+            <state relative-caret-position="225">
+              <caret line="15" column="6" lean-forward="true" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -97,18 +62,26 @@
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>buffer</find>
+    </findStrings>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/views/users/renew.handlebars" />
-        <option value="$PROJECT_DIR$/views/users/edit.handlebars" />
-        <option value="$PROJECT_DIR$/views/users/transfer.handlebars" />
-        <option value="$PROJECT_DIR$/views/users/buy.handlebars" />
-        <option value="$PROJECT_DIR$/views/layouts/main.handlebars" />
         <option value="$PROJECT_DIR$/views/home/index.handlebars" />
-        <option value="$PROJECT_DIR$/server/config/routes.js" />
+        <option value="$PROJECT_DIR$/views/users/transfer.handlebars" />
+        <option value="$PROJECT_DIR$/views/users/price.handlebars" />
+        <option value="$PROJECT_DIR$/views/users/renew.handlebars" />
+        <option value="$PROJECT_DIR$/views/users/buy.handlebars" />
+        <option value="$PROJECT_DIR$/views/users/edit.handlebars" />
+        <option value="$PROJECT_DIR$/views/users/getip.handlebars" />
         <option value="$PROJECT_DIR$/server/controllers/users-controller.js" />
+        <option value="$PROJECT_DIR$/server/config/routes.js" />
+        <option value="$PROJECT_DIR$/views/layouts/main.handlebars" />
+        <option value="$PROJECT_DIR$/public/js/contract_interaction.js" />
       </list>
     </option>
   </component>
@@ -124,8 +97,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="105" />
-    <option name="y" value="36" />
+    <option name="x" value="9" />
+    <option name="y" value="29" />
     <option name="width" value="1251" />
     <option name="height" value="777" />
   </component>
@@ -364,18 +337,18 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1522509669580</updated>
-      <workItem from="1522509672261" duration="2221000" />
+      <workItem from="1522509672261" duration="5569000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2221000" />
+    <option name="totallyTimeSpent" value="5569000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="105" y="36" width="1251" height="777" extended-state="0" />
+    <frame x="9" y="29" width="1251" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2495935" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13252032" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -401,7 +374,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="3" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -409,46 +384,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="4" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/users/edit.handlebars">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="95" lean-forward="false" selection-start-line="12" selection-start-column="95" selection-end-line="12" selection-end-column="95" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/users/renew.handlebars">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="96" lean-forward="false" selection-start-line="12" selection-start-column="96" selection-end-line="12" selection-end-column="96" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/users/transfer.handlebars">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="99" lean-forward="false" selection-start-line="12" selection-start-column="99" selection-end-line="12" selection-end-column="99" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/users/buy.handlebars">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="64" lean-forward="true" selection-start-line="14" selection-start-column="64" selection-end-line="14" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/layouts/main.handlebars">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-970">
-          <caret line="11" column="68" lean-forward="true" selection-start-line="11" selection-start-column="68" selection-end-line="11" selection-end-column="68" />
           <folding />
         </state>
       </provider>
@@ -485,19 +420,98 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/config/routes.js">
+    <entry file="file://$PROJECT_DIR$/views/users/price.handlebars">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="32" lean-forward="true" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
+        <state relative-caret-position="285">
+          <caret line="19" column="61" lean-forward="false" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/users/transfer.handlebars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="22" column="61" lean-forward="false" selection-start-line="22" selection-start-column="61" selection-end-line="22" selection-end-column="61" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/controllers/users-controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
+        <state relative-caret-position="90">
+          <caret line="6" column="6" lean-forward="true" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/users/renew.handlebars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="18" column="64" lean-forward="false" selection-start-line="18" selection-start-column="64" selection-end-line="18" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/users/edit.handlebars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="65" lean-forward="false" selection-start-line="18" selection-start-column="65" selection-end-line="18" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/users/buy.handlebars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="23" column="60" lean-forward="false" selection-start-line="23" selection-start-column="60" selection-end-line="23" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/layouts/main.handlebars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="55" column="47" lean-forward="false" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/config/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="6" lean-forward="true" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/users/getip.handlebars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="15" column="37" lean-forward="true" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/contract_interaction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="209" column="36" lean-forward="true" selection-start-line="209" selection-start-column="36" selection-end-line="209" selection-end-column="36" />
+          <folding>
+            <element signature="e#7198#7267#0" expanded="false" />
+            <element signature="e#9189#10067#0" expanded="false" />
+            <element signature="e#10121#10922#0" expanded="false" />
+            <element signature="e#10975#11816#0" expanded="false" />
+            <element signature="e#11873#12723#0" expanded="false" />
+            <element signature="e#12777#13642#0" expanded="false" />
+            <element signature="e#14562#14685#0" expanded="false" />
+            <element signature="e#14723#14875#0" expanded="false" />
+            <element signature="e#14908#15034#0" expanded="false" />
+            <element signature="e#15075#15224#0" expanded="false" />
+            <element signature="e#15263#15710#0" expanded="false" />
+            <marker date="1522532192495" expanded="true" signature="8317:9048" ph="..." />
+            <marker date="1522532192495" expanded="false" signature="8392:8431" ph="..." />
+            <marker date="1522532192495" expanded="false" signature="8744:8765" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -53,7 +53,7 @@ contract DDNSService is Destructible {
     }
 
     modifier isDomainNameLengthAllowed(bytes domain) {
-        require(domain.length > DOMAIN_NAME_MIN_LENGTH);
+        require(domain.length >= DOMAIN_NAME_MIN_LENGTH);
         _;
     }
 

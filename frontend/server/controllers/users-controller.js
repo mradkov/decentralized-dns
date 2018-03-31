@@ -2,6 +2,12 @@ module.exports = {
     domainBuy: (req, res) => {
         res.render('users/buy')
     },
+    domainPrice: (req, res) => {
+        res.render('users/price')
+    },
+    domainIP: (req, res) => {
+        res.render('users/getip')
+    },
     domainRenew: (req, res) => {
         res.render('users/renew', {domainName: req.query.domainName})
     },

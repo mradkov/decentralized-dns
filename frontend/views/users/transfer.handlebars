@@ -4,11 +4,23 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8 offset-sm-2">
-                        <form id="submitSolve">
-                            <h1 class="text-center">Transfer domain: {{ domainName }}</h1>
+                        <form id="transfer">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Select top level</label>
+                                <select class="form-control" name="domainTopLevel" required>
+                                    <option value=".com" selected>.com</option>
+                                    <option value=".co.uk">.co.uk</option>
+                                    <option value=".bg">.bg</option>
+                                    <option value=".io">.io</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="domainName">Name</label>
+                                <input type="text" minlength="5" class="form-control" name="domainName" required>
+                            </div>
                             <div class="form-group">
                                 <label for="newOwner">New owner's address:</label>
-                                <input type="text" class="form-control" name="newOwner">
+                                <input type="text" class="form-control" name="newOwner" required>
                             </div>
                             <button type="submit" class="btn btn-primary btn-lg btn-block">Transfer</button>
                         </form>
