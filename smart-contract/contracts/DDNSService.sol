@@ -12,7 +12,7 @@ contract DDNSService is Destructible {
         bytes name;
         bytes12 topLevel;
         address owner;
-        bytes4 ip;
+        bytes15 ip;
         uint expires;
     }
 
@@ -67,7 +67,7 @@ contract DDNSService is Destructible {
      */
     event LogDomainNameRegistered(uint indexed timestamp, bytes domainName, bytes12 topLevel);
     event LogDomainNameRenewed(uint indexed timestamp, bytes domainName, bytes12 topLevel, address indexed owner); 
-    event LogDomainNameEdited(uint indexed timestamp, bytes domainName, bytes12 topLevel, address indexed owner); 
+    event LogDomainNameEdited(uint indexed timestamp, bytes domainName, bytes12 topLevel, bytes15 newIp); 
     event LogDomainNameTransferred(uint indexed timestamp, bytes domainName, bytes12 topLevel, address indexed owner, address newOwner); 
     event LogPurchaseChangeReturned(uint indexed timestamp, address indexed _owner, uint amount);
     event LogReceipt(uint indexed timestamp, bytes domainName, uint amountInWei, uint expires);
@@ -80,9 +80,10 @@ contract DDNSService is Destructible {
     /*
      * @dev - function to regiter domain name
      * @param domain - domain name to be registered
+     * @param topLevel - domain top level
      * @param ip - the ip of the host
      */
-    function register(bytes domain, bytes12 topLevel, bytes4 ip) public payable isDomainNameLengthAllowed(domain) isTopLevelLengthAllowed(topLevel) isAvailable(domain, topLevel) collectDomainNamePayment(domain) {
+    function register(bytes domain, bytes12 topLevel, bytes15 ip) public payable isDomainNameLengthAllowed(domain) isTopLevelLengthAllowed(topLevel) isAvailable(domain, topLevel) collectDomainNamePayment(domain) {
         bytes32 domainHash = getDomainHash(domain, topLevel);
 
         DomainDetails memory newDomain = DomainDetails({name: domain, topLevel: topLevel, owner: msg.sender, ip: ip, expires: block.timestamp + DOMAIN_EXPIRATION_DATE});
@@ -100,7 +101,7 @@ contract DDNSService is Destructible {
     /*
      * @dev - function to extend domain expiration date
      * @param domain - domain name to be registered
-     * @param ip - the ip of the host
+     * @param topLevel - top level
      */
     function renewDomainName(bytes domain, bytes12 topLevel) public payable isDomainOwner(domain, topLevel) collectDomainNamePayment(domain) {
         bytes32 domainHash = getDomainHash(domain, topLevel);
@@ -116,41 +117,43 @@ contract DDNSService is Destructible {
     /*
      * @dev - function to edit domain name
      * @param domain - the domain name to be editted
+     * @param topLevel
      * @param newIp - the new ip for the domain
      */
-    function edit(bytes domain, bytes12 topLevel, bytes4 newIp) public isDomainOwner(domain, topLevel) {
+    function edit(bytes domain, bytes12 topLevel, bytes15 newIp) public isDomainOwner(domain, topLevel) {
         bytes32 domainHash = getDomainHash(domain, topLevel);        
         domainNames[domainHash].ip = newIp;
-        LogDomainNameEdited(block.timestamp, domain, topLevel, msg.sender);
+        LogDomainNameEdited(block.timestamp, domain, topLevel, newIp);
     }
     
     /*
-     * @dev -
-     * @param 
-     * @return
+     * @dev - Transfer domain ownership
+     * @param domain
+     * @pparam topLevel
+     * @param newOwner
      */
     function transferDomain(bytes domain, bytes12 topLevel, address newOwner) public isDomainOwner(domain, topLevel) {
+        require(newOwner != 0x00);
         bytes32 domainHash = getDomainHash(domain, topLevel);
         domainNames[domainHash].owner = newOwner;
         LogDomainNameTransferred(block.timestamp, domain, topLevel, msg.sender, newOwner);
     }
     
     /*
-     * @dev -
-     * @param 
-     * @return
+     * @dev - Get ip of domain
+     * @param domain
+     * @param topLevel
      */
-    function getIP(bytes domain, bytes12 topLevel) public view returns (bytes4) {
+    function getIP(bytes domain, bytes12 topLevel) public view returns (bytes15) {
         bytes32 domainHash = getDomainHash(domain, topLevel);
         return domainNames[domainHash].ip;
     }
     
     /*
-     * @dev -
-     * @param 
-     * @return
+     * @dev - Get price of domain
+     * @param domain
      */
-    function getPrice(bytes domain) public view returns (uint) {
+    function getPrice(bytes domain) public pure returns (uint) {
         if (domain.length < DOMAIN_NAME_EXPENSIVE_LENGTH) {
             return DOMAIN_NAME_COST + DOMAIN_NAME_COST_SHORT_ADDITION;
         }
@@ -159,19 +162,27 @@ contract DDNSService is Destructible {
     }
     
     /*
-     * @dev - Get receipts 
-     * @param 
-     * @return
+     * @dev - Get receipts
      */
     function getReceiptList() public view returns (bytes32[]) {
         return paymentReceipts[msg.sender];
+    }
+    
+    /*
+     * @dev - Get single receipt
+     * @param receiptKey
+     */
+    function getReceipt(bytes32 receiptKey) public view returns (uint, uint, uint) {
+        return (receiptDetails[receiptKey].amountPaidWei,
+                receiptDetails[receiptKey].timestamp,
+                receiptDetails[receiptKey].expires);
     }
 
     /*
      * @dev - Get domain name + top level hash 
      * @param domain
      * @param topLevel
-     * @return
+     * @return domainHash
      */
     function getDomainHash(bytes domain, bytes12 topLevel) public pure returns(bytes32) {
         return keccak256(domain, topLevel);
@@ -181,16 +192,14 @@ contract DDNSService is Destructible {
      * @dev - Get recepit key
      * @param domain
      * @param topLevel
-     * @return
+     * @return receiptKey
      */
     function getReceiptKey(bytes domain, bytes12 topLevel) public view returns(bytes32) {
         return keccak256(domain, topLevel, msg.sender, block.timestamp);
     } 
 
     /*
-     * @dev - Get receipts 
-     * @param 
-     * @return
+     * @dev - Withdraw function 
      */
     function withdraw() public onlyOwner {
         owner.transfer(address(this).balance);

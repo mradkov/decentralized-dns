@@ -193,7 +193,7 @@ contract('DDNSService', ([owner, wallet, anotherAccount]) => {
 		await assertRevert(result);
 	});
 
-	it("editDomainIp Should throw when the invoker is not the domain owner", async () => {
+	it("edit Should throw when the invoker is not the domain owner", async () => {
 		// Arrange
 		const domainName = "milenradkov";
 		const ip = "127.0.0.1";
@@ -201,13 +201,13 @@ contract('DDNSService', ([owner, wallet, anotherAccount]) => {
 		const currentPrice = await contractInstance.getPrice(domainName);
 		await contractInstance.register(domainName, topLevelDomain, ip, { from: owner, value: currentPrice });
 		// Act
-		const anotherIp = "localhost";
+		const anotherIp = "123.123.123.123";
 		const result = contractInstance.edit(domainName, topLevelDomain, anotherIp, { from: anotherAccount });
 		// Assert
 		assertRevert(result);
 	});
 
-	it("editDomainIp Should edit the domain ip", async () => {
+	it("edit Should edit the domain ip", async () => {
 		// Arrange
 		const domainName = "milenradkov";
 		const ip = "127.0.0.1";
@@ -215,102 +215,101 @@ contract('DDNSService', ([owner, wallet, anotherAccount]) => {
 		const currentPrice = await contractInstance.getPrice(domainName);
 		await contractInstance.register(domainName, topLevelDomain, ip, { from: owner, value: currentPrice });
 		// Act
-		const anotherIp = "localhost";
+		const anotherIp = "123.123.123.123";
 		await contractInstance.edit(domainName, topLevelDomain, anotherIp, { from: owner });
-
 		const domainHash = await contractInstance.getDomainHash(domainName, topLevelDomain);
 		const domainDetails = await contractInstance.domainNames(domainHash);
 		// Assert
-		assert.equal(web3.toUtf8(domainDetails[1]), anotherIp);
+		assert.equal(web3.toUtf8(domainDetails[3]), anotherIp);
 	});
 
-	it("editDomainIp Should raise LogEditedDomain event when called with valid arguments", async () => {
+	it("edit Should raise LogDomainNameEdited event when called with valid arguments", async () => {
 		// Arrange
 		const domainName = "milenradkov";
 		const ip = "127.0.0.1";
 		const topLevelDomain = "com";
-		const currentPrice = await contractInstance.registrationCost();
+		const currentPrice = await contractInstance.getPrice(domainName);
 
-		const event = contractInstance.LogEditedDomain();
+		const event = contractInstance.LogDomainNameEdited();
 		const promiEvent = watchEvent(event);
 		events.push(event);
 		// Act
-		await contractInstance.registerDomain(domainName, ip, topLevelDomain, { from: owner, value: currentPrice });
-		const anotherIp = "localhost";
-		await contractInstance.editDomainIp(domainName, topLevelDomain, anotherIp, { from: owner });
+		await contractInstance.register(domainName, topLevelDomain, ip, { from: owner, value: currentPrice });
+		const anotherIp = "123.123.123.123";
+		await contractInstance.edit(domainName, topLevelDomain, anotherIp, { from: owner });
 		const result = await promiEvent;
 		// Assert
 		assert.equal(web3.toUtf8(result.args.domainName), domainName, "Wrong domainName value.");
-		assert.equal(web3.toUtf8(result.args.topLevelDomain), topLevelDomain, "Wrong topLevelDomain value.");
-		assert.equal(web3.toUtf8(result.args.newIpAddress), anotherIp, "Wrong newIpAddress value.");
+		assert.equal(web3.toUtf8(result.args.topLevel), topLevelDomain, "Wrong topLevelDomain value.");
+		assert.equal(web3.toUtf8(result.args.newIp), anotherIp, "Wrong newIpAddress value.");
 	});
 
-	it("transferOwnership Should throw when the invoker is not the domain owner", async () => {
+	it("transferDomain Should throw when the invoker is not the domain owner", async () => {
 		// Arrange
 		const domainName = "milenradkov";
 		const ip = "127.0.0.1";
 		const topLevelDomain = "com";
-		const currentPrice = await contractInstance.registrationCost();
-		await contractInstance.registerDomain(domainName, ip, topLevelDomain, { from: owner, value: currentPrice });
+		const currentPrice = await contractInstance.getPrice(domainName);
+		await contractInstance.register(domainName, topLevelDomain, ip, { from: owner, value: currentPrice });
 		// Act
-		const result = contractInstance.transferOwnership(domainName, topLevelDomain, anotherAccount, { from: anotherAccount });
+		const result = contractInstance.transferDomain(domainName, topLevelDomain, anotherAccount, { from: anotherAccount });
 		// Assert
 		assertRevert(result);
 	});
 
-	it("transferOwnership Should throw when passed invalid _to argument", async () => {
+	it("transferDomain Should throw when passed invalid _to argument", async () => {
 		// Arrange
 		const domainName = "milenradkov";
 		const ip = "127.0.0.1";
 		const topLevelDomain = "com";
-		const currentPrice = await contractInstance.registrationCost();
-		await contractInstance.registerDomain(domainName, ip, topLevelDomain, { from: owner, value: currentPrice });
+		const currentPrice = await contractInstance.getPrice(domainName);
+		await contractInstance.register(domainName, topLevelDomain, ip, { from: owner, value: currentPrice });
 		// Act
-		const result = contractInstance.transferOwnership(domainName, topLevelDomain, '0x00', { from: owner });
+		const result = contractInstance.transferDomain(domainName, topLevelDomain, '0x00', { from: owner });
 		// Assert
 		assertRevert(result);
 	});
 
-	it("transferOwnership Should transfer the ownership when called with valid arguments", async () => {
+	it("transferDomain Should transfer the ownership when called with valid arguments", async () => {
 		// Arrange
 		const domainName = "milenradkov";
 		const ip = "127.0.0.1";
 		const topLevelDomain = "com";
-		const currentPrice = await contractInstance.registrationCost();
-		await contractInstance.registerDomain(domainName, ip, topLevelDomain, { from: owner, value: currentPrice });
+		const currentPrice = await contractInstance.getPrice(domainName);
+		await contractInstance.register(domainName, topLevelDomain, ip, { from: owner, value: currentPrice });
 		// Act
-		await contractInstance.transferOwnership(domainName, topLevelDomain, anotherAccount, { from: owner });
-		const domainKey = await contractInstance.getDomainKey(domainName, topLevelDomain);
-		const domainDetails = await contractInstance.domains(domainKey);
+		await contractInstance.transferDomain(domainName, topLevelDomain, anotherAccount, { from: owner });
+		const domainHash = await contractInstance.getDomainHash(domainName, topLevelDomain);
+		const domainDetails = await contractInstance.domainNames(domainHash);
 		// Assert
-		assert.equal(domainDetails[3], anotherAccount);
+		assert.equal(domainDetails[2], anotherAccount);
 	});
 
-	it("transferOwnership Should raise LogOwnershipTransfer event when called with valid arguments", async () => {
+	it("transferDomain Should raise LogDomainNameTransferred event when called with valid arguments", async () => {
 		// Arrange
 		const domainName = "milenradkov";
 		const ip = "127.0.0.1";
 		const topLevelDomain = "com";
-		const currentPrice = await contractInstance.registrationCost();
+		const currentPrice = await contractInstance.getPrice(domainName);
 
-		await contractInstance.registerDomain(domainName, ip, topLevelDomain, { from: owner, value: currentPrice });
+		await contractInstance.register(domainName, topLevelDomain, ip, { from: owner, value: currentPrice });
 
-		const event = contractInstance.LogOwnershipTransfer();
+		const event = contractInstance.LogDomainNameTransferred();
 		const promiEvent = watchEvent(event);
 		events.push(event);
 		// Act
-		await contractInstance.transferOwnership(domainName, topLevelDomain, anotherAccount, { from: owner });
+		await contractInstance.transferDomain(domainName, topLevelDomain, anotherAccount, { from: owner });
 		const result = await promiEvent;
 		// Assert
 		assert.equal(web3.toUtf8(result.args.domainName), domainName, "Wrong domainName value.");
-		assert.equal(web3.toUtf8(result.args.topLevelDomain), topLevelDomain, "Wrong topLevelDomain value.");
-		assert.equal(result.args.from, owner, "Wrong sender address value.");
-		assert.equal(result.args.to, anotherAccount, "Wrong receiver address value.");
+		assert.equal(web3.toUtf8(result.args.topLevel), topLevelDomain, "Wrong topLevel value.");
+		assert.equal(result.args.owner, owner, "Wrong owner address value.");
+		assert.equal(result.args.newOwner, anotherAccount, "Wrong newOwner address value.");
 	});
 
-	it("getDomainPrice Should return regular price, when passed domain with 8 symbols or more", async () => {
+	it("getPrice Should return regular price, when passed domain with 8 symbols or more", async () => {
 		// Arrange
-		const domainName = "tensymbols";
+		const domainName = "milenradkov";
 		let currentPrice =  await contractInstance.getPrice(domainName);
 		// Act
 		const result = await contractInstance.getPrice(domainName);
@@ -318,14 +317,15 @@ contract('DDNSService', ([owner, wallet, anotherAccount]) => {
 		assert.deepEqual(result, currentPrice);
 	});
 
-	it("getDomainPrice Should return 200% higher price, when passed domain with 5, 6 or 7 symbols", async () => {
+	it("getPrice Should return 200% higher price, when passed domain with 5, 6 or 7 symbols", async () => {
 		// Arrange
-		const domainName = "tensymb";
-		let currentPrice =  await contractInstance.getPrice(domainName);
-		currentPrice = currentPrice.plus(1);
+		const domainNameRegular = "milen123";
+		const domainNameShort = "milen";
+		let regularPrice =  await contractInstance.getPrice(domainNameRegular);
+		regularPrice = regularPrice.mul(2);
 		// Act
-		const result = await contractInstance.getPrice(domainName);
+		const shortPrice = await contractInstance.getPrice(domainNameShort);
 		// Assert
-		assert.deepEqual(result, currentPrice);
+		assert.equal(regularPrice.toString(10), shortPrice.toString(10));
 	});
 });
