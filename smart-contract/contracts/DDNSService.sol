@@ -5,9 +5,10 @@ import './common/Destructible.sol';
 import './libs/SafeMath.sol';
 
 contract DDNSService is Destructible {
-
+    /** USINGS */
     using SafeMath for uint256;
 
+    /** STRUCTS */
     struct DomainDetails {
         bytes name;
         bytes12 topLevel;
@@ -22,18 +23,23 @@ contract DDNSService is Destructible {
         uint expires;
     }
 
+    /** CONSTANTS */
     uint constant public DOMAIN_NAME_COST = 1 ether;
     uint constant public DOMAIN_NAME_COST_SHORT_ADDITION = 1 ether;
     uint constant public DOMAIN_EXPIRATION_DATE = 1 years;
-    uint8 public constant DOMAIN_NAME_MIN_LENGTH = 5;
-    uint8 public constant DOMAIN_NAME_EXPENSIVE_LENGTH = 8;
-    uint8 public constant TOP_LEVEL_DOMAIN_MIN_LENGTH = 1;
-    bytes1 public constant BYTES_DEFAULT_VALUE = bytes1(0x00);
+    uint8 constant public DOMAIN_NAME_MIN_LENGTH = 5;
+    uint8 constant public DOMAIN_NAME_EXPENSIVE_LENGTH = 8;
+    uint8 constant public TOP_LEVEL_DOMAIN_MIN_LENGTH = 1;
+    bytes1 constant public BYTES_DEFAULT_VALUE = bytes1(0x00);
     
+    /** STATE VARIABLES */
     mapping (bytes32 => DomainDetails) public domainNames;
     mapping(address => bytes32[]) public paymentReceipts;
     mapping(bytes32 => Receipt) public receiptDetails;
 
+    /** 
+     * MODIFIERS
+     */
     modifier isAvailable(bytes domain, bytes12 topLevel) {
         bytes32 domainHash = getDomainHash(domain, topLevel);
         require(domainNames[domainHash].expires < block.timestamp);
@@ -72,7 +78,9 @@ contract DDNSService is Destructible {
     event LogPurchaseChangeReturned(uint indexed timestamp, address indexed _owner, uint amount);
     event LogReceipt(uint indexed timestamp, bytes domainName, uint amountInWei, uint expires);
 
-
+    /**
+     * @dev - Constructor of the contract
+     */
     function DDNSService() public {
         
     }
@@ -129,7 +137,7 @@ contract DDNSService is Destructible {
     /*
      * @dev - Transfer domain ownership
      * @param domain
-     * @pparam topLevel
+     * @param topLevel
      * @param newOwner
      */
     function transferDomain(bytes domain, bytes12 topLevel, address newOwner) public isDomainOwner(domain, topLevel) {
@@ -161,7 +169,7 @@ contract DDNSService is Destructible {
         return DOMAIN_NAME_COST;
     }
     
-    /*
+    /**
      * @dev - Get receipts
      */
     function getReceiptList() public view returns (bytes32[]) {
@@ -198,7 +206,7 @@ contract DDNSService is Destructible {
         return keccak256(domain, topLevel, msg.sender, block.timestamp);
     } 
 
-    /*
+    /**
      * @dev - Withdraw function 
      */
     function withdraw() public onlyOwner {
