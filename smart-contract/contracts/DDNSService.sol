@@ -329,10 +329,10 @@ contract DDNSService is Destructible {
         view 
         returns (bytes15)
     {
-        //
+        // calculate the hash of the domain
         bytes32 domainHash = getDomainHash(domain, topLevel);
         
-        //
+        // return the ip property of the domain from storage
         return domainNames[domainHash].ip;
     }
     
@@ -358,7 +358,7 @@ contract DDNSService is Destructible {
     }
     
     /**
-     * @dev - Get receipts
+     * @dev - Get receipt list for the msg.sender
      */
     function getReceiptList() public view returns (bytes32[] memory) {
         return paymentReceipts[msg.sender];
