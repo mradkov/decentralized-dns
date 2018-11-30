@@ -137,9 +137,9 @@ contract DDNSService is Destructible {
     }
     
     /*
-     * @dev - function to regiter domain name
+     * @dev - function to register domain name
      * @param domain - domain name to be registered
-     * @param topLevel - domain top level
+     * @param topLevel - domain top level (TLD)
      * @param ip - the ip of the host
      */
     function register(
@@ -154,9 +154,10 @@ contract DDNSService is Destructible {
         isAvailable(domain, topLevel) 
         collectDomainNamePayment(domain) 
     {
-        
+        // calculate the domain hash
         bytes32 domainHash = getDomainHash(domain, topLevel);
 
+        // create a new domain entry with the provided fn parameters
         DomainDetails memory newDomain = DomainDetails(
             {
                 name: domain,
@@ -167,8 +168,10 @@ contract DDNSService is Destructible {
             }
         );
 
+        // save the domain to the storage
         domainNames[domainHash] = newDomain;
         
+        // create an receipt entry for this domain purchase
         Receipt memory newReceipt = Receipt(
             {
                 amountPaidWei: DOMAIN_NAME_COST,
@@ -177,12 +180,16 @@ contract DDNSService is Destructible {
             }
         );
 
+        // calculate the receipt hash/key
         bytes32 receiptKey = getReceiptKey(domain, topLevel);
         
+        // save the receipt key for this `msg.sender` in storage
         paymentReceipts[msg.sender].push(receiptKey);
         
+        // save the receipt entry/details in storage
         receiptDetails[receiptKey] = newReceipt;
 
+        // log receipt issuance
         emit LogReceipt(
             block.timestamp, 
             domain, 
@@ -190,6 +197,7 @@ contract DDNSService is Destructible {
             block.timestamp + DOMAIN_EXPIRATION_DATE
         );
     
+        // log domain name registered
         emit LogDomainNameRegistered(
             block.timestamp, 
             domain, 
@@ -211,13 +219,13 @@ contract DDNSService is Destructible {
         isDomainOwner(domain, topLevel)
         collectDomainNamePayment(domain)
     {
-        //
+        // calculate the domain hash
         bytes32 domainHash = getDomainHash(domain, topLevel);
         
-        //
+        // add 365 days (1 year) to the domain expiration date
         domainNames[domainHash].expires += 365 days;
         
-        //
+        // create a receipt entity
         Receipt memory newReceipt = Receipt(
             {
                 amountPaidWei: DOMAIN_NAME_COST,
@@ -226,33 +234,61 @@ contract DDNSService is Destructible {
             }
         );
 
-        //
+        // calculate the receipt key for this domain
         bytes32 receiptKey = getReceiptKey(domain, topLevel);
         
-        //
+        // save the receipt id for this msg.sender
         paymentReceipts[msg.sender].push(receiptKey);
+
+        // store the receipt details in storage
         receiptDetails[receiptKey] = newReceipt;
 
-        emit LogDomainNameRenewed(block.timestamp, domain, topLevel, msg.sender);
+        // log domain name Renewed
+        emit LogDomainNameRenewed(
+            block.timestamp,
+            domain,
+            topLevel,
+            msg.sender
+        );
+
+        // log receipt issuance
+        emit LogReceipt(
+            block.timestamp, 
+            domain, 
+            DOMAIN_NAME_COST, 
+            block.timestamp + DOMAIN_EXPIRATION_DATE
+        );
     }
     
     /*
      * @dev - function to edit domain name
      * @param domain - the domain name to be editted
-     * @param topLevel
+     * @param topLevel - tld of the domain
      * @param newIp - the new ip for the domain
      */
-    function edit(bytes memory domain, bytes12 topLevel, bytes15 newIp) public isDomainOwner(domain, topLevel) {
-        bytes32 domainHash = getDomainHash(domain, topLevel);        
+    function edit(
+        bytes memory domain,
+        bytes12 topLevel,
+        bytes15 newIp
+    ) 
+        public 
+        isDomainOwner(domain, topLevel) 
+    {
+        // calculate the domain hash - unique id
+        bytes32 domainHash = getDomainHash(domain, topLevel);
+
+        // update the new ip        
         domainNames[domainHash].ip = newIp;
+
+        // log change
         emit LogDomainNameEdited(block.timestamp, domain, topLevel, newIp);
     }
     
     /*
      * @dev - Transfer domain ownership
-     * @param domain
-     * @param topLevel
-     * @param newOwner
+     * @param domain - name of the domain
+     * @param topLevel - tld of the domain
+     * @param newOwner - address of the new owner
      */
     function transferDomain(
         bytes memory domain,
@@ -262,16 +298,16 @@ contract DDNSService is Destructible {
         public 
         isDomainOwner(domain, topLevel)
     {
-        //
+        // prevent assigning domain ownership to the 0x0 address
         require(newOwner != address(0));
         
-        //
+        // calculate the hash of the current domain
         bytes32 domainHash = getDomainHash(domain, topLevel);
         
-        //
+        // assign the new owner of the domain
         domainNames[domainHash].owner = newOwner;
         
-        //
+        // log the transfer of ownership
         emit LogDomainNameTransferred(
             block.timestamp,
             domain, topLevel,
@@ -311,13 +347,13 @@ contract DDNSService is Destructible {
         pure
         returns (uint) 
     {
-        //
+        // check if the domain name fits in the expensive or cheap categroy
         if (domain.length < DOMAIN_NAME_EXPENSIVE_LENGTH) {
-            //
+            // if the domain is too short - its more expensive
             return DOMAIN_NAME_COST + DOMAIN_NAME_COST_SHORT_ADDITION;
         }
 
-        //
+        // otherwise return the regular price
         return DOMAIN_NAME_COST;
     }
     
@@ -339,17 +375,18 @@ contract DDNSService is Destructible {
     }
 
     /*
-     * @dev - Get domain name + top level hash 
+     * @dev - Get (domain name + top level) hash used for unique identifier 
      * @param domain
      * @param topLevel
      * @return domainHash
      */
     function getDomainHash(bytes memory domain, bytes12 topLevel) public pure returns(bytes32) {
+        // @dev - tightly pack parameters in struct for keccak256
         return keccak256(abi.encodePacked(domain, topLevel));
     } 
 
     /*
-     * @dev - Get recepit key
+     * @dev - Get recepit key hash - unique identifier
      * @param domain
      * @param topLevel
      * @return receiptKey
