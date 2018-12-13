@@ -4,7 +4,6 @@ const assertRevert = require('./utils/assertRevert');
 const watchEvent = require('./utils/watchEvent');
 const constants = require('./utils/constants');
 const increaseTime = require('./utils/increaseTime');
-const config = require('./config.json');
 
 contract('DDNSService', ([owner, wallet, anotherAccount]) => {
 	let contractInstance;
