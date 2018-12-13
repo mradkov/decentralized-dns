@@ -1,0 +1,20 @@
+{
+  "name": "smart-contract",
+  "version": "1.0.0",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "truffle test",
+    "coverage": "solidity-coverage"
+  },
+  "author": "Milen Radkov <milenradkov@me.com> (http://mradkov.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "coveralls": "^3.0.2",
+    "solidity-coverage": "^0.5.11"
+  },
+  "dependencies": {},
+  "description": ""
+}

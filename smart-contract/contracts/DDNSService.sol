@@ -1,11 +1,11 @@
 pragma solidity >=0.4.22 <0.6.0;
 
 import "./common/Ownable.sol";
-import "./common/Destructible.sol";
+// import "./common/Destructible.sol";
 import "./libs/SafeMath.sol";
 
 
-contract DDNSService is Destructible {
+contract DDNSService is Ownable {
     
     /** USINGS */
     using SafeMath for uint256;
