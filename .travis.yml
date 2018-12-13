@@ -1,29 +1,24 @@
-language: node_js
-
+dist: xenial
 sudo: required
-
+language: node_js
 node_js:
-  - "8.11.3"
-
-env:
-  - CXX=g++-4.8
-
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - build-essential
-      - g++-4.8
-
-before_install:
-  - export CXX="g++-4.8"
-  - npm install -g npm@latest
-  - npm install -g ganache-cli truffle
-
+  - "9.4.0"
+ 
+matrix:
+  include:
+    - os: linux
+      dist: xenial
+      before_install:
+      - sudo add-apt-repository ppa:ethereum/ethereum -y
+      - sudo apt-get update
+      - sudo apt-get install build-essential -y
+      - sudo apt-get install gcc g++ libssl-dev libudev-dev pkg-config
+      - curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+      - sudo apt-get install -y nodejs
+      - rm -rf node_modules
+ 
 install:
-  - npm install 
-
+  - bash ./bin/travis-install.sh
+ 
 script:
-  - ganache-cli &
-  - truffle test
+  - bash ./bin/test.sh
