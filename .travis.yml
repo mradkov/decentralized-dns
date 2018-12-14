@@ -22,3 +22,6 @@ install:
  
 script:
   - bash ./bin/test.sh
+
+after_success:
+  - bash ./bin/coveralls.sh
