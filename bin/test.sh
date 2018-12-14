@@ -9,3 +9,7 @@ cd smart-contract
 truffle compile
 truffle migrate --reset --network development
 truffle test
+export COVERALLS_REPO_TOKEN=OxKTQG4wUtAUjkjEF8C1hIsUGH5tLtPz2
+npm run coverage && cat coverage/lcov.info | coveralls
+
+kill -9 $(lsof -t -i:8545)
