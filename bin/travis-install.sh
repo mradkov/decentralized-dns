@@ -1,3 +1,3 @@
 #!/bin/bash
 npm install
-npm install -g ganache-cli truffle
+npm install -g ganache-cli truffle coveralls solidity-coverage

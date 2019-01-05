@@ -15,6 +15,12 @@
     "coveralls": "^3.0.2",
     "solidity-coverage": "^0.5.11"
   },
-  "dependencies": {},
+  "dependencies": {
+    "chai": "^4.2.0",
+    "chai-bignumber": "^3.0.0",
+    "ethereumjs-util": "^6.0.0",
+    "ethjs-abi": "^0.2.1",
+    "web3-utils": "^1.0.0-beta.37"
+  },
   "description": ""
 }
